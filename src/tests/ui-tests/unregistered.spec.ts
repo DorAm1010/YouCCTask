@@ -21,10 +21,16 @@ test.describe('Unregistered User', () => {
     await modelPage.initialize();
     expect(await modelPage.commentInput.isVisible(), 'Comment input should not be visible for unregistered users')
     .toBe(false);
-    debugger;
     expect(await modelPage.voteButton.isVisible(), 'Vote button should not be visible for unregistered users.')
     .toBe(false);
     expect(await modelPage.getUnregisterdUserComment(), 'Unregistered user message should be visible for unregistered users.')
     .toEqual('You need to be logged in to vote.');
+  });
+
+  test('All top bar buttons are visible', async ({ page }) => {
+    expect(await mainPage.isUsernameInputVisible(), 'Username input should be visible to an unregisterd user').toBe(true);
+    expect(await mainPage.isPasswordInputVisible(), 'Passwor input should be visible to an unregisterd user').toBe(true);
+    expect(await mainPage.isLoginbuttonVisible(), 'Login button should be visible to an unregisterd user').toBe(true);
+    expect(await mainPage.isRegisterButtonVisible(), 'Register button should be visible to an unregisterd user').toBe(true);
   });
 });

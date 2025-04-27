@@ -2,35 +2,40 @@ import { type Locator, type Page } from '@playwright/test';
 
 export class BuggyCarsProfilePage {
     readonly page: Page;
-    readonly usernameInput: Locator;
-    readonly firstNameInput: Locator;
-    readonly lastNameInput: Locator;
-    readonly genderDropdown: Locator;
-    readonly ageInput: Locator;
-    readonly addressImput: Locator;
-    readonly phoneInput: Locator;
-    readonly hobbyInput: Locator;
-    readonly currentPasswordInput: Locator;  
-    readonly newPasswordInput: Locator;
-    readonly confirmNewPasswordInput: Locator;
-    readonly saveButton: Locator;
-    readonly cancelButton: Locator;
+    private usernameInput: Locator;
+    private firstNameInput: Locator;
+    private lastNameInput: Locator;
+    private genderDropdown: Locator;
+    private ageInput: Locator;
+    private addressInput: Locator;
+    private phoneInput: Locator;
+    private hobbyInput: Locator;
+    private currentPasswordInput: Locator;  
+    private newPasswordInput: Locator;
+    private confirmNewPasswordInput: Locator;
+    private saveButton: Locator;
+    private cancelButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.usernameInput = page.locator('[id="username"]');
-        this.firstNameInput = page.locator('[id="firstName"]');
-        this.lastNameInput = page.locator('[id="lastName"]');
-        this.genderDropdown = page.locator('');
-        this.ageInput = page.locator('[id="age"]');
-        this.addressImput = page.locator('[id="address"]');
-        this.phoneInput = page.locator('[id="phone"]');
-        this.hobbyInput = page.locator('[id="hobby"]');
-        this.currentPasswordInput = page.locator('[id="currentPassword"]');
-        this.newPasswordInput = page.locator('[id="newPassword"]');
-        this.confirmNewPasswordInput = page.locator('[id="confirmNewPassword"]');
-        this.saveButton = page.locator('button[type="submit"]');
-        this.cancelButton = page.locator('a[href="/"]');
+    }
+
+    async initialize() {
+        await this.page.waitForSelector('[id="username"]');
+        this.usernameInput = this.page.locator('[id="username"]');
+        this.firstNameInput = this.page.locator('[id="firstName"]');
+        this.lastNameInput = this.page.locator('[id="lastName"]');
+        this.genderDropdown = this.page.locator('');
+        this.ageInput = this.page.locator('[id="age"]');
+        this.addressInput = this.page.locator('[id="address"]');
+        this.phoneInput = this.page.locator('[id="phone"]');
+        this.hobbyInput = this.page.locator('[id="hobby"]');
+        this.currentPasswordInput = this.page.locator('[id="currentPassword"]');
+        this.newPasswordInput = this.page.locator('[id="newPassword"]');
+        this.confirmNewPasswordInput = this.page.locator('[id="confirmNewPassword"]');
+        this.saveButton = this.page.locator('button[type="submit"]');
+        this.cancelButton = this.page.locator('a[href="/"]');
+
     }
 
     async fillUsername(username: string) {
@@ -67,6 +72,10 @@ export class BuggyCarsProfilePage {
 
     async fillNewPassword(password: string) {
         await this.newPasswordInput.fill(password);
+    }
+
+    async fillAddress(address: string) {
+        await this.addressInput.fill(address);
     }
 
     async fillConfirmNewPassword(confirmPassword: string) {

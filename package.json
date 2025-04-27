@@ -11,7 +11,8 @@
     "test:file": "playwright test --config=playwright.config.ts",
     "test:file:headed:trace": "playwright test --config=playwright.config.ts --headed --trace on",
     "test:retry": "playwright test --retries 2",
-    "test:headed:retry": "playwright test --headed --retries 2"
+    "test:headed:retry": "playwright test --headed --retries 2",
+     "test:name": "playwright test -g"
   },
   "keywords": [],
   "author": "",

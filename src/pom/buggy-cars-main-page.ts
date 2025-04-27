@@ -18,7 +18,7 @@ export class BuggyCarsMainPage {
   }
 
   async initialize(): Promise<void> {
-    this.page.waitForSelector('xpath=.//h2[text()="Popular Make"]/parent::div[@class="card"]');
+    await this.page.waitForSelector('xpath=.//h2[text()="Popular Make"]/parent::div[@class="card"]');
     this.loginButton = this.page.locator('button[type=submit]');
     this.usernameInput = this.page.locator('[name=login]');
     this.passwordInput = this.page.locator('[name=password]');
@@ -62,4 +62,30 @@ export class BuggyCarsMainPage {
   async logout() {
     await this.logoutButton.click();
   }
+
+  async isUsernameInputVisible(): Promise<boolean> {
+    return await this.usernameInput.isVisible();
+  }
+
+  async isPasswordInputVisible(): Promise<boolean> {
+    return await this.passwordInput.isVisible();
+  }
+
+  async isLoginbuttonVisible(): Promise<boolean> {
+    return await this.loginButton.isVisible();
+  }
+
+  async isRegisterButtonVisible(): Promise<boolean> {
+    return await this.registerButton.isVisible();
+  }
+
+  async isLogoutButtonVisible(): Promise<boolean> {
+    return await this.logoutButton.isVisible();
+  }
+
+  async getGreetingMessage(): Promise<string> {
+    const message = await this.greetingMessage.textContent();
+    return message ? message.trim() : '';
+  }
+
 }

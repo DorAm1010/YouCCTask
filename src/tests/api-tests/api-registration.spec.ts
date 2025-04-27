@@ -20,7 +20,7 @@ test.describe('API registration tests', () => {
         password,
         confirmPassword: password
     }
-    const response = await api.post(newUser);
+    const response = await api.register(newUser);
     expect(response.status(), `Expected response to be 201 but was ${response.status}`).toBe(201);
   });
 
@@ -34,7 +34,7 @@ test.describe('API registration tests', () => {
         password,
         confirmPassword: password
     }
-    const response = await api.post(newUser);
+    const response = await api.register(newUser);
     const responseJson = await response.json();
     console.log(responseJson)
     expect(response.status(), `Expected response to be 400 but was ${response.status}`).toBe(400);
@@ -53,7 +53,7 @@ test.describe('API registration tests', () => {
 //         password,
 //         confirmPassword: password.substring(0, 5) + '@#$'
 //     }
-//     const response = await api.post(newUser);
+//     const response = await api.register(newUser);
 //     const responseJson = await response.json();
 //     console.log(responseJson)
 //     expect(response.status(), `Expected response to be 400 but was ${response.status}`).toBe(400);
@@ -76,8 +76,8 @@ test.describe('API registration tests', () => {
         password,
         confirmPassword: password
     }
-    const response = await api.post(newUser);
-    const secondResponse = await api.post(newUserSameUsername);
+    const response = await api.register(newUser);
+    const secondResponse = await api.register(newUserSameUsername);
 
     const responseJson = await secondResponse.json();
     console.log(responseJson)
