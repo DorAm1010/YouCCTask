@@ -8,7 +8,7 @@
     "test:debug": "playwright test --debug",
     "test:report": "playwright show-report",
     "test:headed": "playwright test --headed",
-    "test:headed-debug": "playwright test --headed --debug",
+    "test:headed:debug": "playwright test --headed --debug",
     "test:trace": "playwright test --trace on",
     "test:trace-viewer": "playwright show-trace trace.zip",
     "test:headed:retry": "playwright test --headed --retries 2"
