@@ -9,6 +9,8 @@ export class BuggyCarsModelPage {
     readonly modelMaxSpeed: Locator;
     readonly modelVotes: Locator;
     readonly commentsTableRows: Locator;
+    readonly commentInput: Locator;
+    readonly voteButton
 
     constructor(page: Page) {
         this.page = page;
@@ -19,6 +21,8 @@ export class BuggyCarsModelPage {
         this.modelMaxSpeed = page.locator('xpath=.//div[@class="col-lg-4"]//li[2]');
         this.modelVotes = page.locator('xpath=.//div[@class="col-lg-4"]//h4[contains(text(), "Votes:")]//strong');
         this.commentsTableRows = page.locator('xpath=.//tbody/tr');
+        this.commentInput = page.locator('textarea[id=comment]');
+        this.voteButton = page.locator('button[class="btn btn-success"]')
     }
 
     async getModelMake(): Promise<string | null> {
@@ -64,5 +68,20 @@ export class BuggyCarsModelPage {
         }
 
         return commentsTable;
+    }
+
+    async getUnregisterdUserComment(): Promise<string | null> {
+        return await this.page.locator('p[class=card-text]').textContent()
+    }
+
+    async leaveComment(comment: string): Promise<void>{
+        await this.commentInput.fill(comment)
+    }
+
+    async vote(comment?: string): Promise<void> {
+        if (comment) {
+            await this.leaveComment(comment);
+        }
+        await this.voteButton.click();
     }
 }

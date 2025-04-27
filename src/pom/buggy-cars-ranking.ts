@@ -4,16 +4,17 @@ import { BuggyCarsRankingTable, BuggyCarsRankingTableRow } from "../tables/ranki
 
 export class BuggyCarsRankingPage {
   readonly page: Page;
-  readonly rankingTable: Locator;
+  readonly rankingTableElement: Locator;
   readonly rankingTableRows: Locator;
+  private rankingTable: BuggyCarsRankingTable;
 
   constructor(page: Page) {
     this.page = page;
-    this.rankingTable = page.locator('xpath=.//table[@class="table"]');
-    this.rankingTableRows = this.rankingTable.locator('.//tbody/tr');
+    this.rankingTableElement = page.locator('xpath=.//table[@class="table"]');
+    this.rankingTableRows = this.rankingTableElement.locator('xpath=.//tbody/tr');
   }
 
-  async buildRankingTable(): Promise<BuggyCarsRankingTable> {
+  async buildRankingTable(): Promise<void> {
     const rows = await this.rankingTableRows.count();
     const tableRows: BuggyCarsRankingTableRow[] = [];
 
@@ -40,7 +41,33 @@ export class BuggyCarsRankingPage {
           );
     }
 
-    return new BuggyCarsRankingTable(tableRows);
-}
+    this.rankingTable = new BuggyCarsRankingTable(tableRows);
+  }
+
+  async getModels(): Promise<string[]> {
+    if (!this.rankingTable) {
+      await this.buildRankingTable();
+    }
+  
+    // Map the rows in the ranking table to an array of objects containing model
+    return this.rankingTable.getRows().map((row) => row.model);
+  }
+
+  async viewModelPageByName(model: string): Promise<void> {
+    if (!this.rankingTable) {
+      await this.buildRankingTable();
+    }
+  
+    // Find the row with the specified model name
+    const targetRow = this.rankingTable.getRows().find((row) => row.model === model);
+  
+    if (!targetRow) {
+      throw new Error(`Model "${model}" not found in the ranking table.`);
+    }
+  
+    // Click the "View More" button for the specified model
+    await targetRow.viewMoreButton.click();
+  }
+
 
 }

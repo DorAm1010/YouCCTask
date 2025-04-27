@@ -48,4 +48,17 @@ export class BuggyCarsRegistrationPage {
   async clickCancel() {
     await this.cancelButton.click();
   }
+
+  async fullRegistration(username: string, firstName: string, lastName: string, password: string, confirmPassword: string) {
+    await this.fillUsername(username);
+    await this.fillFirstName(firstName);
+    await this.fillLastName(lastName);
+    await this.fillPassword(password);
+    await this.fillConfirmPassword(confirmPassword);
+    await this.clickRegister();
+  }
+  async checkErrorMessage(errorMessage: string) {
+    const errorMessageLocator = this.page.locator('');
+    await expect(errorMessageLocator).toHaveText(errorMessage);
+  }
 }

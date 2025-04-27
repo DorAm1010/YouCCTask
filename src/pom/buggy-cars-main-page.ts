@@ -27,29 +27,25 @@ export class BuggyCarsMainPage {
     this.logoutButton = page.locator('xpath=.//a[text()="Logout"]');
   }
 
-  async goto() {
-    await this.page.goto('https://buggy.justtestit.org/');
-  }
-
   async login(username: string, password: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
   }
 
-  async clickRegistrButton() {
+  async clickRegisterButton() {
     await this.registerButton.click();
   }
 
-  async gotoPopularMakesPage() {
+  async goToPopularMakesPage() {
     await this.popularMakesCard.locator('a').click();
   }
 
-  async gotoPopularModelPage() {
+  async goToPopularModelPage() {
     await this.popularModelCard.locator('a').click();
   }
 
-  async gotOverallRatingPage() {
+  async goToOverallRatingPage() {
     await this.overallRatingCard.locator('a').click();
   }
 
