@@ -73,6 +73,12 @@ export class BuggyCarsRegistrationPage {
     await expect(successfullMessageLocator).toHaveText('Registration is successful', {timeout});
   }
 
+  async getErrorMessage(timeout: number = 20000): Promise<string | null> {
+    await this.page.waitForSelector('xpath=.//div[@class="result alert alert-danger"]', {timeout});
+    const errorMessageLocator = this.page.locator('xpath=.//div[@class="result alert alert-danger"]');
+    return await errorMessageLocator.textContent();
+  }
+
   async checkErrorMessage(errorMessage: string) {
     const errorMessageLocator = this.page.locator('');
     await expect(errorMessageLocator).toHaveText(errorMessage);

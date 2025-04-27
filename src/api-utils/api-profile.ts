@@ -1,6 +1,6 @@
 import { APIRequestContext, APIResponse, request } from '@playwright/test';
 
-export class ApiRProfileUtils {
+export class ApiProfileUtils {
   private requestContext: APIRequestContext;
   readonly baseURL: string;
   readonly token: string;
