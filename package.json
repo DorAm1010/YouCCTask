@@ -1,0 +1,24 @@
+{
+  "name": "youcctask",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:headed": "playwright test --headed",
+    "test:headed-debug": "playwright test --headed --debug",
+    "test:trace": "playwright test --trace on",
+    "test:trace-viewer": "playwright show-trace trace.zip",
+    "test:headed:retry": "playwright test --headed --retries 2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.2"
+  }
+}
