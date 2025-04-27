@@ -6,20 +6,24 @@ test.describe('Unregistered User', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('https://buggy.justtestit.org/');
       mainPage = new BuggyCarsMainPage(page);
+      await mainPage.initialize();
   });
 
   test('Unregistered user cant vote', async ({ page }) => {
     await mainPage.goToOverallRatingPage();
     const overallRatingPage: BuggyCarsRankingPage = new BuggyCarsRankingPage(page);
+    await overallRatingPage.initialize();
     const models = await overallRatingPage.getModels();
     // Select a random model
     const randomModel = models[Math.floor(Math.random() * models.length)];
     await overallRatingPage.viewModelPageByName(randomModel);
     const modelPage = new BuggyCarsModelPage(page);
-    expect(modelPage.commentInput, 'Comment input should not be visible for unregistered users')
-    .toBeNull();
-    expect(modelPage.voteButton, 'Vote button should not be visible for unregistered users.')
-    .toBeNull();
+    await modelPage.initialize();
+    expect(await modelPage.commentInput.isVisible(), 'Comment input should not be visible for unregistered users')
+    .toBe(false);
+    debugger;
+    expect(await modelPage.voteButton.isVisible(), 'Vote button should not be visible for unregistered users.')
+    .toBe(false);
     expect(await modelPage.getUnregisterdUserComment(), 'Unregistered user message should be visible for unregistered users.')
     .toEqual('You need to be logged in to vote.');
   });

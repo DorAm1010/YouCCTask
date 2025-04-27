@@ -4,15 +4,33 @@ import { BuggyCarsRankingTable, BuggyCarsRankingTableRow } from "../tables/ranki
 
 export class BuggyCarsRankingPage {
   readonly page: Page;
-  readonly rankingTableElement: Locator;
-  readonly rankingTableRows: Locator;
+  rankingTableElement: Locator;
+  rankingTableRows: Locator;
   private rankingTable: BuggyCarsRankingTable;
 
   constructor(page: Page) {
     this.page = page;
-    this.rankingTableElement = page.locator('xpath=.//table[@class="table"]');
-    this.rankingTableRows = this.rankingTableElement.locator('xpath=.//tbody/tr');
+    // this.rankingTableElement = page.locator('xpath=//table[@class="cars table table-hover"]');
+    // this.rankingTableRows = this.rankingTableElement.locator('xpath=//tbody/tr');
   }
+
+  async initialize(): Promise<void> {
+    // Wait for the table to appear before proceeding
+    await this.page.waitForSelector('xpath=//table[@class="cars table table-hover"]');
+    this.rankingTableElement = this.page.locator('xpath=//table[@class="cars table table-hover"]');
+    this.rankingTableRows = this.rankingTableElement.locator('xpath=//tbody/tr');  }
+
+
+  async waitForPageToLoad(): Promise<void> {
+    await this.page.waitForSelector('xpath=.//table[@class="cars table table-hover"]');
+  }
+
+  // async logNumberOfRows(): Promise<void> {
+  //   const table = await this.rankingTableElement.count();
+  //   console.log(`found table: ${table == 1 ? 'yes' : 'no'}`);
+  //   const rows = await this.rankingTableRows.count();
+  //   console.log(`Number of rows in the ranking table: ${rows}`);
+  // }
 
   async buildRankingTable(): Promise<void> {
     const rows = await this.rankingTableRows.count();
@@ -20,6 +38,7 @@ export class BuggyCarsRankingPage {
 
     for (let i = 0; i < rows; i++) {
         const row = this.rankingTableRows.nth(i);
+        
         const make = await row.locator('xpath=./td[2]').textContent();
         const model = await row.locator('xpath=./td[3]').textContent();
         const rank = await row.locator('xpath=./td[4]').textContent();
@@ -28,6 +47,7 @@ export class BuggyCarsRankingPage {
         const commentsCell = row.locator('xpath=./td[7]');
         const comments = await commentsCell.locator('p').allTextContents();
         const viewMoreButton = commentsCell.locator('a');  
+        
         tableRows.push(
             new BuggyCarsRankingTableRow(
               make?.trim() || '',
@@ -59,14 +79,15 @@ export class BuggyCarsRankingPage {
     }
   
     // Find the row with the specified model name
-    const targetRow = this.rankingTable.getRows().find((row) => row.model === model);
-  
+    const targetRow = this.rankingTable.findByModel(model);
     if (!targetRow) {
       throw new Error(`Model "${model}" not found in the ranking table.`);
     }
+
+    const viewMoreButton = targetRow[0].viewMoreButton;
   
     // Click the "View More" button for the specified model
-    await targetRow.viewMoreButton.click();
+    await viewMoreButton.click();
   }
 
 

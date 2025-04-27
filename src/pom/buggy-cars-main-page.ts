@@ -2,29 +2,34 @@ import { type Locator, type Page } from '@playwright/test';
 
 export class BuggyCarsMainPage {
   readonly page: Page;
-  readonly loginButton: Locator;
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly registerButton: Locator;
-  readonly popularMakesCard: Locator;
-  readonly popularModelCard: Locator;
-  readonly overallRatingCard: Locator;
-  readonly greetingMessage: Locator;
-  readonly profileButton: Locator;
-  readonly logoutButton: Locator;
+  private loginButton: Locator;
+  private usernameInput: Locator;
+  private passwordInput: Locator;
+  private registerButton: Locator;
+  private popularMakesCard: Locator;
+  private popularModelCard: Locator;
+  private overallRatingCard: Locator;
+  private greetingMessage: Locator;
+  private profileButton: Locator;
+  private logoutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.loginButton = page.locator('button[type=submit]');
-    this.usernameInput = page.locator('[name=login]');
-    this.passwordInput = page.locator('[name=password]');
-    this.registerButton = page.locator('a[href="/register"]');
-    this.popularMakesCard = page.locator('xpath=.//h2[text()="Popular Make"]/parent::div[@class="card"]');
-    this.popularModelCard = page.locator('xpath=.//h2[text()="Popular Model"]/parent::div[@class="card"]');
-    this.overallRatingCard = page.locator('xpath=.//h2[text()="Overall Rating"]/parent::div[@class="card"]');
-    this.greetingMessage = page.locator('xpath=.//span[contains(text(),"Hi, ")]');
-    this.profileButton = page.locator('a[href="/profile"]');
-    this.logoutButton = page.locator('xpath=.//a[text()="Logout"]');
+  }
+
+  async initialize(): Promise<void> {
+    this.page.waitForSelector('xpath=.//h2[text()="Popular Make"]/parent::div[@class="card"]');
+    this.loginButton = this.page.locator('button[type=submit]');
+    this.usernameInput = this.page.locator('[name=login]');
+    this.passwordInput = this.page.locator('[name=password]');
+    this.registerButton = this.page.locator('a[href="/register"]');
+    this.popularMakesCard = this.page.locator('xpath=.//h2[text()="Popular Make"]/parent::div[@class="card"]');
+    this.popularModelCard = this.page.locator('xpath=.//h2[text()="Popular Model"]/parent::div[@class="card"]');
+    this.overallRatingCard = this.page.locator('xpath=//h2[text()="Overall Rating"]/parent::div[@class="card"]');
+    this.greetingMessage = this.page.locator('xpath=.//span[contains(text(),"Hi, ")]');
+    this.profileButton = this.page.locator('a[href="/profile"]');
+    this.logoutButton = this.page.locator('xpath=.//a[text()="Logout"]');
+
   }
 
   async login(username: string, password: string) {
@@ -46,6 +51,7 @@ export class BuggyCarsMainPage {
   }
 
   async goToOverallRatingPage() {
+    const card = await this.overallRatingCard.count();
     await this.overallRatingCard.locator('a').click();
   }
 
