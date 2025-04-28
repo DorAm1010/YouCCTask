@@ -7,15 +7,11 @@ This project contains automated tests for the Buggy Cars website, covering both 
     ```bash
     git clone https://github.com/DorAm1010/YouCCTask.git
     ```
-2. Navigate to the project directory:
-    ```bash
-    cd YouCC
-    ```
-3. Install dependencies:
+2. Install dependencies:
     ```bash
     npm install
     ```
-4. Install Playwright browsers:
+3. Install Playwright browsers:
     ```bsah
     npx playwright install
     ```
