@@ -27,7 +27,7 @@ test.describe('Unregistered User', () => {
     .toEqual('You need to be logged in to vote.');
   });
 
-  test('All top bar buttons are visible', async ({ page }) => {
+  test('All top bar buttons are visible for unregistered user', async ({ page }) => {
     expect(await mainPage.isUsernameInputVisible(), 'Username input should be visible to an unregisterd user').toBe(true);
     expect(await mainPage.isPasswordInputVisible(), 'Passwor input should be visible to an unregisterd user').toBe(true);
     expect(await mainPage.isLoginbuttonVisible(), 'Login button should be visible to an unregisterd user').toBe(true);
