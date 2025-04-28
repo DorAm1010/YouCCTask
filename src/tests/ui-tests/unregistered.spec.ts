@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { BuggyCarsMainPage, BuggyCarsModelPage, BuggyCarsRankingPage } from '../../pom/index';
+import { BuggyCarsMainPage, BuggyCarsModelPage, BuggyCarsOverallRankingPage } from '../../pom/index';
 
 test.describe('Unregistered User', () => {
   let mainPage: BuggyCarsMainPage;
@@ -11,7 +11,7 @@ test.describe('Unregistered User', () => {
 
   test('Unregistered user cant vote', async ({ page }) => {
     await mainPage.goToOverallRatingPage();
-    const overallRatingPage: BuggyCarsRankingPage = new BuggyCarsRankingPage(page);
+    const overallRatingPage: BuggyCarsOverallRankingPage = new BuggyCarsOverallRankingPage(page);
     await overallRatingPage.initialize();
     const models = await overallRatingPage.getModels();
     // Select a random model

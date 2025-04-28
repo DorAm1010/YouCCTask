@@ -1,7 +1,7 @@
 import { Locator } from "@playwright/test";
 
 // Represents a single row in the ranking table
-export class BuggyCarsRankingTableRow {
+export class BuggyCarsOverallRankingTableRow {
   readonly make: string;
   readonly model: string;
   readonly rank: string;
@@ -30,35 +30,30 @@ export class BuggyCarsRankingTableRow {
 }
 
 // Represents the entire ranking table
-export class BuggyCarsRankingTable {
-  private rows: BuggyCarsRankingTableRow[];
+export class BuggyCarsOverallRankingTable {
+  private rows: BuggyCarsOverallRankingTableRow[];
 
-  constructor(rows: BuggyCarsRankingTableRow[]) {
+  constructor(rows: BuggyCarsOverallRankingTableRow[]) {
     this.rows = rows;
   }
 
-  // Get all rows
-  getRows(): BuggyCarsRankingTableRow[] {
+  getRows(): BuggyCarsOverallRankingTableRow[] {
     return this.rows;
   }
 
-  // Find rows by make
-  findByMake(make: string): BuggyCarsRankingTableRow[] {
+  findByMake(make: string): BuggyCarsOverallRankingTableRow[] {
     return this.rows.filter((row) => row.make === make);
   }
 
-  // Find rows by model
-  findByModel(model: string): BuggyCarsRankingTableRow[] {
+  findByModel(model: string): BuggyCarsOverallRankingTableRow[] {
     return this.rows.filter((row) => row.model === model);
   }
 
-  // Sort rows by rank
-  sortByRank(): BuggyCarsRankingTableRow[] {
+  sortByRank(): BuggyCarsOverallRankingTableRow[] {
     return [...this.rows].sort((a, b) => parseInt(a.rank) - parseInt(b.rank));
   }
 
-  // Sort rows by votes
-  sortByVotes(): BuggyCarsRankingTableRow[] {
+  sortByVotes(): BuggyCarsOverallRankingTableRow[] {
     return [...this.rows].sort((a, b) => parseInt(b.votes) - parseInt(a.votes));
   }
 }

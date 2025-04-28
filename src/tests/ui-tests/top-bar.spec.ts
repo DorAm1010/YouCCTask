@@ -12,12 +12,10 @@ test.describe('Top Bar Tests', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('https://buggy.justtestit.org/');
-
     mainPage = new BuggyCarsMainPage(page);
     await mainPage.initialize();
     await mainPage.login(user.username, user.password);
     await page.waitForSelector(`xpath=.//*[contains(text(), "Hi, ${user.firstName}")]`);
-
   });
 
   test('All top bar buttons are visible for logged in user', async () => {

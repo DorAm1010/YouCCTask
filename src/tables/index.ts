@@ -1,0 +1,2 @@
+export { BuggyCarsOverallRankingTable, BuggyCarsOverallRankingTableRow } from './overall-ranking-table';
+export { PopularMakesRankingTable, PopularMakesRankingTableRow } from './popular-makes-ranking-table';

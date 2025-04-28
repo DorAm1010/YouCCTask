@@ -1,12 +1,12 @@
 import { Locator, Page } from "@playwright/test";
-import { BuggyCarsRankingTable, BuggyCarsRankingTableRow } from "../tables/ranking-table";
+import { BuggyCarsOverallRankingTable, BuggyCarsOverallRankingTableRow } from "../tables/index";
 
 
-export class BuggyCarsRankingPage {
+export class BuggyCarsOverallRankingPage {
   readonly page: Page;
   rankingTableElement: Locator;
   rankingTableRows: Locator;
-  private rankingTable: BuggyCarsRankingTable;
+  private rankingTable: BuggyCarsOverallRankingTable;
 
   constructor(page: Page) {
     this.page = page;
@@ -25,16 +25,9 @@ export class BuggyCarsRankingPage {
     await this.page.waitForSelector('xpath=.//table[@class="cars table table-hover"]');
   }
 
-  // async logNumberOfRows(): Promise<void> {
-  //   const table = await this.rankingTableElement.count();
-  //   console.log(`found table: ${table == 1 ? 'yes' : 'no'}`);
-  //   const rows = await this.rankingTableRows.count();
-  //   console.log(`Number of rows in the ranking table: ${rows}`);
-  // }
-
   async buildRankingTable(): Promise<void> {
     const rows = await this.rankingTableRows.count();
-    const tableRows: BuggyCarsRankingTableRow[] = [];
+    const tableRows: BuggyCarsOverallRankingTableRow[] = [];
 
     for (let i = 0; i < rows; i++) {
         const row = this.rankingTableRows.nth(i);
@@ -49,7 +42,7 @@ export class BuggyCarsRankingPage {
         const viewMoreButton = commentsCell.locator('a');  
         
         tableRows.push(
-            new BuggyCarsRankingTableRow(
+            new BuggyCarsOverallRankingTableRow(
               make?.trim() || '',
               model?.trim() || '',
               rank?.trim() || '',
@@ -61,7 +54,7 @@ export class BuggyCarsRankingPage {
           );
     }
 
-    this.rankingTable = new BuggyCarsRankingTable(tableRows);
+    this.rankingTable = new BuggyCarsOverallRankingTable(tableRows);
   }
 
   async getModels(): Promise<string[]> {

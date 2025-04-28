@@ -12,6 +12,8 @@ export class BuggyCarsMainPage {
   private greetingMessage: Locator;
   private profileButton: Locator;
   private logoutButton: Locator;
+  private popularMakesVotes: number;
+  private popularModelVotes: number;
 
   constructor(page: Page) {
     this.page = page;
@@ -29,7 +31,33 @@ export class BuggyCarsMainPage {
     this.greetingMessage = this.page.locator('xpath=.//span[contains(text(),"Hi, ")]');
     this.profileButton = this.page.locator('a[href="/profile"]');
     this.logoutButton = this.page.locator('xpath=.//a[text()="Logout"]');
+    await this.setPopularMakesVotes();
+    await this.setPopularModelsVotes();
 
+  }
+
+  async setPopularMakesVotes(): Promise<void> {
+    const votesText = await this.popularMakesCard.locator('small').textContent();
+    const votes = votesText?.match(/\d+/g);
+    if (votes && votes.length > 0) {
+      this.popularMakesVotes = parseInt(votes[0], 10);
+    } else {
+      this.popularMakesVotes = 0;
+    }
+  }
+
+  async setPopularModelsVotes(): Promise<void> {
+    const votesText = await this.popularModelCard.locator('small').textContent();
+    const votes = votesText?.match(/\d+/g);
+    if (votes && votes.length > 0) {
+      this.popularModelVotes = parseInt(votes[0], 10);
+    } else {
+      this.popularModelVotes = 0;
+    }
+  }
+
+  getPopularMakesVotes(): number {
+    return this.popularMakesVotes;
   }
 
   async login(username: string, password: string) {
