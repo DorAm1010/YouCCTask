@@ -80,7 +80,7 @@ test.describe('Auth Flows', () => {
     let mainPage: BuggyCarsMainPage;
     let mockUser = {
       username: 'DorAmrani',
-      password: '123Arba%%'
+      password: 'NewPassword!@#456'
     }
   
     test.beforeEach(async ({ page }) => {

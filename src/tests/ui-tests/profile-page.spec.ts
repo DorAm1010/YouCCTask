@@ -9,7 +9,7 @@ test.describe('Profile page tests', () => {
     const user = {
         grant_type: 'password',
         username: 'DorAmrani',
-        password: '123Arba%%'
+        password: 'NewPassword!@#456'
     }
     
 

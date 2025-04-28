@@ -6,7 +6,7 @@ test.describe('Top Bar Tests', () => {
   let mainPage: BuggyCarsMainPage;
   let user = {
     username: 'DorAmrani',
-    password: '123Arba%%',
+    password: 'NewPassword!@#456',
     firstName: 'Dor'
   };
 

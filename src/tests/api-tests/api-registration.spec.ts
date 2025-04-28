@@ -12,7 +12,7 @@ test.describe('API registration tests', () => {
 
   test('Register new user', async () => {
     const username = 'api_user_' + Math.random().toString(36).substring(2, 10);
-    const password = "123Arba%%";
+    const password = 'NewPassword!@#456';
     const newUser = {
         username,
         firstName: "a",
@@ -26,7 +26,7 @@ test.describe('API registration tests', () => {
 
   test('should fail to crete new user with no first name', async () => {
     const username = 'api_user_' + Math.random().toString(36).substring(2, 10);
-    const password = "123Arba%%";
+    const password = "NewPassword!@#456";
     const newUser = {
         username,
         firstName: "",
@@ -44,7 +44,7 @@ test.describe('API registration tests', () => {
 
   test('should fail to crete new user with same username', async () => {
     const username = 'api_user_' + Math.random().toString(36).substring(2, 10);
-    const password = "123Arba%%";
+    const password = "NewPassword!@#456";
     const newUser = {
         username,
         firstName: "a",
