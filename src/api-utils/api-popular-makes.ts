@@ -19,4 +19,14 @@ export class ApiPopularMakesUtils {
     return response.json();
   }
 
+  async getPopularMake() {
+    this.requestContext = await request.newContext({
+      baseURL: 'https://k51qryqov3.execute-api.ap-southeast-2.amazonaws.com/prod',
+    });
+    const response = await this.requestContext.get('/dashboard');
+    const responseBody = await response.json();
+    console.log('Full Response Body:', responseBody);
+    return responseBody['make']['id'];
+}
+
 }
