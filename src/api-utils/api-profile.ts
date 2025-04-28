@@ -20,28 +20,11 @@ export class ApiProfileUtils {
 
   async get(endpoint: string, params?: Record<string, string>) {
     const response = await this.requestContext.get(endpoint, { params });
-    return this.handleResponse(response);
+    return await response.json();
   }
 
   async post(endpoint: string, body: Record<string, any>) {
     const response = await this.requestContext.post(endpoint, { data: body });
-    return this.handleResponse(response);
-  }
-
-  async put(endpoint: string, body: Record<string, any>) {
-    const response = await this.requestContext.put(endpoint, { data: body });
-    return this.handleResponse(response);
-  }
-
-  async delete(endpoint: string) {
-    const response = await this.requestContext.delete(endpoint);
-    return this.handleResponse(response);
-  }
-
-  private async handleResponse(response: APIResponse) {
-    if (!response.ok()) {
-      throw new Error(`API call failed with status ${response.status()}: ${await response.text()}`);
-    }
-    return response.json();
+    return await response.json();
   }
 }

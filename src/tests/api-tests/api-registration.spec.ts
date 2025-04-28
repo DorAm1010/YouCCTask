@@ -42,23 +42,6 @@ test.describe('API registration tests', () => {
     .toBe("first name is required");
   });
 
-  // This is a bug in the API
-//   test('should fail to crete new user with different passwords', async () => {
-//     const username = 'api_user_' + Math.random().toString(36).substring(2, 10);
-//     const password = "123Arba%%";
-//     const newUser = {
-//         username,
-//         firstName: "a",
-//         lastName: "c",
-//         password,
-//         confirmPassword: password.substring(0, 5) + '@#$'
-//     }
-//     const response = await api.register(newUser);
-//     const responseJson = await response.json();
-//     console.log(responseJson)
-//     expect(response.status(), `Expected response to be 400 but was ${response.status}`).toBe(400);
-//   });
-
   test('should fail to crete new user with same username', async () => {
     const username = 'api_user_' + Math.random().toString(36).substring(2, 10);
     const password = "123Arba%%";

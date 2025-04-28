@@ -32,7 +32,7 @@ export class BuggyCarsProfilePage {
         this.hobbyInput = this.page.locator('[id="hobby"]');
         this.currentPasswordInput = this.page.locator('[id="currentPassword"]');
         this.newPasswordInput = this.page.locator('[id="newPassword"]');
-        this.confirmNewPasswordInput = this.page.locator('[id="confirmNewPassword"]');
+        this.confirmNewPasswordInput = this.page.locator('[id="newPasswordConfirmation"]');
         this.saveButton = this.page.locator('button[type="submit"]');
         this.cancelButton = this.page.locator('a[href="/"]');
 
